@@ -14,6 +14,7 @@ set(SRC ${SRC_DIR}/main.cpp
 
 	${SRC_DIR}/shader.cpp
 	${SRC_DIR}/mesh.cpp
+	${SRC_DIR}/camera.cpp
 	
 	# GLAD
 	${SRC_DIR}/glad.c)
