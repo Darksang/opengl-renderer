@@ -71,6 +71,12 @@ int main(int argc, char **argv) {
 
    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
+   // Query time
+   GLuint Query;
+   GLuint64 ElapsedTime;
+
+   glad_glGenQueries(1, &Query);
+
    // Main loop
    while (!glfwWindowShouldClose(Window)) {
       float CurrentFrame = glfwGetTime();
@@ -111,7 +117,11 @@ int main(int argc, char **argv) {
       TextureShader.SetMat4("Model", ModelMatrix);
 
       // Draw mesh
+      glad_glBeginQuery(GL_TIME_ELAPSED, Query);
       Mesh.Draw(TextureShader);
+      glad_glEndQuery(GL_TIME_ELAPSED);
+      glad_glGetQueryObjectui64v(Query, GL_QUERY_RESULT, &ElapsedTime);
+      std::cout << ElapsedTime << std::endl;
 
       // Swap buffers
       glfwSwapBuffers(Window);
